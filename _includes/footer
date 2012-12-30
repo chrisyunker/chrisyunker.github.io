@@ -1,0 +1,14 @@
+<div class="footer">
+  <div class="contact">
+    <p>
+      Chris Yunker<br />
+      chris@yunker.io
+    </p>
+  </div>
+  <div class="contact">
+    <p>
+      <a href="http://github.com/chrisyunker/">github.com/chrisyunker</a><br />
+      <a href="http://twitter.com/cyunker/">twitter.com/cyunker</a><br />
+    </p>
+  </div>
+</div>

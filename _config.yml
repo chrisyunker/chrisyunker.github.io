@@ -3,6 +3,7 @@ permalink: /:year/:month/:day/:title
 safe: true
 auto: true
 pygments: true
+markdown: rdiscount
 
 title : Chris Yunker
 author :
@@ -10,6 +11,9 @@ author :
   email : chris@yunker.io
   github : chrisyunker
   twitter : cyunker
+
+analytics :
+  google_id : UA-28316611-2
 
 production_url : http://blog.yunker.io
 

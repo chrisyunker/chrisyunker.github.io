@@ -2,7 +2,7 @@
 layout: post
 title: "Erlang OTP releases with rebar"
 description: ""
-category: 
+category: erlang
 tags: [erlang otp rebar lager release]
 ---
 
@@ -10,9 +10,10 @@ In the past week, I've been bundling one of my Erlang projects into an OTP relea
 
 I called my test project esempio and posted it on GitHub: [esempio](https://github.com/chrisyunker/esempio)
 
-## Create esempio application
+# Create esempio application
 
 I used rebar to create the initial application skeleton files:
+
 {% highlight erlang %}
 $ mkdir esempio
 $ cd esempio
@@ -48,11 +49,13 @@ I added lager as a dependency in the application resource file: esempio.app.src.
 __esempio.app.src file (excerpt)__
 
 {% highlight erlang %}
+...
 {applications, [
-                  kernel,
-                  stdlib,
-                  lager
-                 ]},
+                kernel,
+                stdlib,
+                lager
+               ]},
+...
 {% endhighlight %}
 
 I used rebar to resolve the lager dependency and pull its application code into the deps subdirectory:
@@ -66,9 +69,10 @@ Cloning into 'lager'...
 ==> lager (get-deps)
 {% endhighlight %}
 
-## Create esempio release ##
+# Create esempio release
 
 I used the same name for the release as I did for the main application which is perfectly acceptable. I used rebar to create the OTP release skeleton files:
+
 {% highlight erlang %}
 $ mkdir rel
 $ cd rel
@@ -86,20 +90,23 @@ Writing files/install_upgrade.escript
 {% endhighlight %}
 
 I made the following changes to the generated files:
-* Removed the \*.cmd files since I won't be installing on windows
-* Removed the install_upgrade.escript (don't need it now)
-* Renamed sys.config to app.config (just my personal preference)
+
++ Removed the \*.cmd files since I won't be installing on windows
++ Removed the install_upgrade.escript (don't need it now)
++ Renamed sys.config to app.config (just my personal preference)
+
 I edited the rel/reltool.config file and made the following changes:
-* Added deps directory to lib_dirs parameter
-* Added lager application dependency to rel section
-* Added project root relative directory ("..") to esempio application lib_dir parameter
-* Added inclusion statement for lager application
-* Added exclusion statement for hipe application
-* Removed incl_cond parameter since it's set to default value (derived)
-* Removed mod_cond parameter since we want it set to default value (all)
-* Changed 'log/sasl' directory to just 'log' directory
-* Renamed sys.config to app.config and changed to install to etc directory
-* Removed copy statements of previously deleted files (\*.cmd and install_upgrade.escript)
+
++ Added deps directory to lib_dirs parameter
++ Added lager application dependency to rel section
++ Added project root relative directory ("..") to esempio application lib_dir parameter
++ Added inclusion statement for lager application
++ Added exclusion statement for hipe application
++ Removed incl_cond parameter since it's set to default value (derived)
++ Removed mod_cond parameter since we want it set to default value (all)
++ Changed 'log/sasl' directory to just 'log' directory
++ Renamed sys.config to app.config and changed to install to etc directory
++ Removed copy statements of previously deleted files (\*.cmd and install_upgrade.escript)
 
 __reltool.config file__
 
@@ -144,10 +151,11 @@ __reltool.config file__
           ]}.
 {% endhighlight %}
 
-I edited the rel/files/app.config file and made the following changes
-* Disable sasl logging
-* Add lager configuration
-* Add esempio configuration
+I edited the rel/files/app.config file and made the following changes:
+
++ Disable sasl logging
++ Add lager configuration
++ Add esempio configuration
 
 __app.config file__
 
@@ -177,8 +185,12 @@ __app.config file__
 
 Esempio configuration parameters can be accessed like this example from esempio_server module.
 
+__esempio_server.erl (excerpt)__
+
 {% highlight erlang %}
+...
 EsempioConfig = application:get_env(esempio, esempio_config),
 lager:info("esempio_config: ~p", [EsempioConfig]),
+...
 {% endhighlight %}
 
