@@ -1,0 +1,15 @@
+permalink: /:year/:month/:day/:title 
+
+safe: true
+auto: true
+pygments: true
+
+title : Chris Yunker
+author :
+  name : Chris Yunker
+  email : chris@yunker.io
+  github : chrisyunker
+  twitter : cyunker
+
+production_url : http://blog.yunker.io
+
