@@ -5,6 +5,8 @@ auto: true
 pygments: true
 markdown: rdiscount
 
+theme : simple
+
 title : Chris Yunker
 author :
   name : Chris Yunker
@@ -14,6 +16,9 @@ author :
 
 analytics :
   google_id : UA-28316611-2
+
+comments :
+  disqus_id : chrisyunkerblog
 
 production_url : http://blog.yunker.io
 

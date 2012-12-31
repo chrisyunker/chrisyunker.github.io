@@ -193,4 +193,3 @@ EsempioConfig = application:get_env(esempio, esempio_config),
 lager:info("esempio_config: ~p", [EsempioConfig]),
 ...
 {% endhighlight %}
-
