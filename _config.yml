@@ -1,7 +1,6 @@
 permalink: /:year/:month/:day/:title 
 
 safe: true
-auto: true
 pygments: true
 markdown: rdiscount
 
