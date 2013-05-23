@@ -195,3 +195,77 @@ ul.posts {
     margin-bottom: 1em;
   }
 
+
+/* Projects */
+
+#menu {
+    font-size:20px;
+}
+#menu td {
+    padding:5px;
+    font-weight:bold;
+}
+.menu-icon {
+    text-align:right;
+    padding-right:10px;
+}
+.menu-link {
+    text-align:left;
+    padding-left:10px;
+}
+
+#project {
+    margin:20px 20px;
+    font-size:15px;
+    font-weight:normal;
+}
+#project table {
+    border-spacing:1px;
+    width:100%;
+}
+#project td {
+    border:1px solid;
+    font-weight:bold;
+    vertical-align:middle;
+    padding:10px;
+}
+#project ul {
+    list-style-type:disc;
+    list-style-position:inside;
+}
+#project img {
+    border: 0;
+}
+
+#screenLeft {
+    float:left;
+}
+#screenRight {
+    float:right;
+}
+#screenTitle {
+    white-space:nowrap;
+    font-weight:bold;
+    text-align:center;
+}
+
+#ios {
+    width: 40em;
+    font-size:15px;
+    font-weight:normal;
+}
+#ios table {
+    border-spacing:1px;
+    width:100%;
+}
+#ios td {
+    border:1px solid;
+    font-weight:bold;
+    vertical-align:top;
+    padding:10px;
+}
+#ios ul {
+    list-style-type:disc;
+    list-style-position:inside;
+}
+
