@@ -1,2 +1,1 @@
-# Chris Yunker's Weblog
-
+## Chris Yunker's Home Page
