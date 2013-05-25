@@ -1,5 +1,5 @@
 <div class="title">
-  <a href=".">{{ page.title }}</a>
+  {{ page.title }}
   <a class="extra" href="/index.html">home</a>
   <a class="extra" href="/projects.html">projects</a>
 </div>
