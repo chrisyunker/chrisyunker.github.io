@@ -5,6 +5,7 @@ description: ""
 category: encoding
 tags: [encoding utf8 latin1 ascii unicode mysql]
 ---
+<p class="meta">05 May 2013</p>
 
 I recently had the misfortune of dealing with a MySQL database which got its data double UTF-8 encoded. It happened during a software deploy so my colleagues and I had to come up with a quick solution and get our database back into live service. Luckily, we were able to find a stopgap solution, and later, during the next maintenance window, we were able to fix the data for good.
 
