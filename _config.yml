@@ -2,7 +2,7 @@ permalink: /:year/:month/:day/:title
 
 safe: true
 lsi: false
-pygments: true
+highlighter: rouge
 markdown: rdiscount
 
 theme : simple
@@ -10,7 +10,7 @@ theme : simple
 title : Chris Yunker
 author :
   name : Chris Yunker
-  email : chris@yunker.io
+  email : chrisyunker@gmail.com
   github : chrisyunker
   twitter : cyunker
 
