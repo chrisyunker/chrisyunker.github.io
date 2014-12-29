@@ -5,22 +5,22 @@ lsi: false
 highlighter: rouge
 markdown: rdiscount
 
-theme : simple
+theme: simple
 
-title : Chris Yunker
-author :
-  name : Chris Yunker
-  email : chrisyunker@gmail.com
-  github : chrisyunker
-  twitter : cyunker
+title: Chris Yunker
+author:
+  name: Chris Yunker
+  email: chrisyunker@gmail.com
+  github: chrisyunker
+  twitter: cyunker
 
-analytics :
-  google_id : UA-28316611-1
+analytics:
+  google_id: UA-28316611-1
 
-comments :
-  disqus_id : chrisyunkerblog
+comments:
+  disqus_id: chrisyunkerblog
 
-production_url : http://yunker.io
+production_url: http://chrisyunker.github.io
 
 exclude: ["vendor"]
 
