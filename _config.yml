@@ -22,6 +22,8 @@ comments :
 
 production_url : http://yunker.io
 
+exclude: ["vendor"]
+
 gems:
 - jekyll-mentions
 - jemoji
