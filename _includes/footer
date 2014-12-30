@@ -1,15 +1,15 @@
 <div class="footer">
   <div class="contact">
-    <p>
-      Chris Yunker<br />
-      chris@yunker.io
-    </p>
+    Chris Yunker<br />
+    chris@yunker.io
   </div>
-  <div class="contact">
-    <p>
-      <a href="http://github.com/chrisyunker/"><img alt="github logo" src="/img/github.png" width="30" height="30" style="vertical-align: middle; width: 30px; height: 30px;" /></a>
-      <a href="http://twitter.com/cyunker/"><img alt="twitter logo" src="/img/twitter.png" width="30" height="30" style="vertical-align: middle; width: 30px; height: 30px;" /></a>
-      <a href="http://www.linkedin.com/in/chrisyunker"><img alt="linked-in logo" src="/img/linkedin.png" width="30" height="30" style="vertical-align: middle; width: 30px; height: 30px;" /></a>
-    </p>
-  </div>
+  <a class="icon-link" href="http://github.com/chrisyunker"
+   target="_blank" style="background-image: url('/img/github.png');">
+  </a>
+  <a class="icon-link" href="http://twitter.com/cyunker"
+   target="_blank" style="background-image: url('/img/twitter.png');">
+  </a>
+  <a class="icon-link" href="http://www.linkedin.com/in/chrisyunker"
+   target="_blank" style="background-image: url('/img/linkedin.png');">
+  </a>
 </div>

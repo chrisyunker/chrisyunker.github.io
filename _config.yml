@@ -24,6 +24,10 @@ production_url: http://chrisyunker.github.io
 
 exclude: ["vendor"]
 
+stylus:
+  compress: true
+  path: ./style
+
 gems:
 - jekyll-mentions
 - jemoji

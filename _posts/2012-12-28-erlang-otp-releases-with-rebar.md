@@ -5,7 +5,7 @@ description: ""
 category: erlang
 tags: [erlang otp rebar lager release]
 ---
-<p class="meta">28 Dec 2012</p>
+<p class="date">2012 Dec 28</p>
 
 In the past week, I've been bundling one of my Erlang projects into an OTP release. I struggled a bit using [rebar](https://github.com/basho/rebar), so I thought I'd put my notes in a blog post and share what I did. I created a simple test project to learn the framework. One of my projects dependencies is the [lager](https://github.com/basho/lager) application for logging. Therefore, my test project also had a dependency on lager.
 
@@ -69,6 +69,7 @@ Pulling lager from {git,"git://github.com/basho/lager.git",{tag,"1.2.1"}}
 Cloning into 'lager'...
 ==> lager (get-deps)
 {% endhighlight %}
+<br />
 
 # Create esempio release
 

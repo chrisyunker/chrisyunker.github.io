@@ -6,17 +6,15 @@
   margin: 0px;
   padding: 0px;
 }
+
 body {
   font: 13px helvetica, arial, clean, sans-serif;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+
+h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
 }
+
 .site {
   max-width: 600px;
   margin: 40px auto 30px auto;
@@ -24,6 +22,7 @@ h6 {
   line-height: 18px;
   font-size: 15px;
 }
+
 .header {
   display: flex;
   flex-direction: row;
@@ -31,21 +30,26 @@ h6 {
   align-items: center;
   margin: 0px 0px 30px 0px;
   font-weight: bold;
+
+  a {
+    color: #aaa;
+    text-decoration: none;
+  }
+  a:hover {
+    color: black;
+  }
+
+  .header-link {
+    flex: 0 0 auto;
+    padding: 0px 15px 0px 0px;
+
+    &.title {
+      color: #a00;
+    }
+  }
+
 }
-.header a {
-  color: #aaa;
-  text-decoration: none;
-}
-.header a:hover {
-  color: #000;
-}
-.header .header-link {
-  flex: 0 0 auto;
-  padding: 0px 15px 0px 0px;
-}
-.header .header-link.title {
-  color: #a00;
-}
+
 .footer {
   display: flex;
   flex-direction: row;
@@ -55,64 +59,77 @@ h6 {
   border-top: 4px solid #eee;
   margin: 25px 0px 0px 0px;
   padding: 12px 0px 0px 0px;
+
+  .contact {
+    flex: 0 0 120px;
+    width: 120px;
+    float: left;
+    padding: 0px 30px 0px 0px;
+  }
 }
-.footer .contact {
-  flex: 0 0 120px;
-  width: 120px;
-  float: left;
-  padding: 0px 30px 0px 0px;
-}
+
 .icon-link {
   flex: 0 0 35px;
   align-self: center;
   width: 35px;
   height: 35px;
-  padding: 5px;
+  padding 5px;
   background-size: 30px 30px;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 ul.posts {
   list-style-type: none;
   margin-bottom: 2em;
+
+  li {
+    line-height: 1.75em;
+  }
+
+  span {
+    color: #aaa;
+    font-family: Monaco, "Courier New", monospace;
+    font-size: 80%;
+  }
 }
-ul.posts li {
-  line-height: 1.75em;
-}
-ul.posts span {
-  color: #aaa;
-  font-family: Monaco, "Courier New", monospace;
-  font-size: 80%;
-}
+
 ul.bullets {
   list-style-type: disc;
+  li {
+    padding-left: 20px;
+  }
 }
-ul.bullets li {
-  padding-left: 20px;
-}
-.post a {
-  color: #00a;
-}
-.post a:hover {
-  color: #000;
-}
-.post a:visited {
-  color: #a0a;
-}
-.post p {
-  margin: 15px 0;
-}
-.post .date {
-  color: #aaa;
-}
-.post ul,
-.post ol {
-  list-style-type: disc;
-  margin-left: 20px;
-}
-.post pre {
-  border: 1px solid #ddd;
-  padding: 5px;
-  background-color: #eef;
-  font-size: 80%;
+
+.post {
+  a {
+    color: #00a;
+  }
+  a:hover {
+    color: black;
+  }
+  a:visited {
+    color: #a0a;
+  }
+
+  p {
+    margin: 15px 0;
+  }
+
+  .date {
+    color: #aaa;
+  }
+
+  ul, ol {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+
+  pre {
+    border: 1px solid #ddd;
+    padding: 5px;
+    background-color: #eef;
+    font-size: 80%;
+  }
+
 }

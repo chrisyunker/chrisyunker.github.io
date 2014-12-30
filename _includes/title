@@ -1,5 +1,0 @@
-<div class="title">
-  {{ page.title }}
-  <a class="extra" href="/index.html">home</a>
-  <a class="extra" href="/projects.html">projects</a>
-</div>
