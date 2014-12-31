@@ -3,7 +3,7 @@ permalink: /:year/:month/:day/:title
 safe: true
 lsi: false
 highlighter: rouge
-markdown: rdiscount
+markdown: redcarpet
 
 theme: simple
 
