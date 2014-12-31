@@ -1,1 +1,5 @@
-## Chris Yunker's Home Page
+Chris Yunker's Weblog
+====
+
+[![Build Status](https://api.travis-ci.org/chrisyunker/chrisyunker.github.io.png)](https://travis-ci.org/chrisyunker/chrisyunker.github.io)
+
