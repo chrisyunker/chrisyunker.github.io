@@ -3,7 +3,6 @@ source "https://rubygems.org"
 ruby '2.1.1'
 
 gem 'jekyll',       '=2.4.0'
-gem 'safe_yaml',    '=1.0.3'
 gem 'jekyll-coffeescript', '=1.0.1'
 gem 'kramdown',     '=1.3.1'
 gem 'maruku',       '=0.7.0'
