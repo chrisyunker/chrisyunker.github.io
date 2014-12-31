@@ -2,7 +2,7 @@ permalink: /:year/:month/:day/:title
 
 safe: true
 lsi: false
-highlighter: rouge
+highlighter: pygments
 markdown: redcarpet
 
 theme: simple
