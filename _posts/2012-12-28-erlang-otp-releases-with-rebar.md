@@ -15,7 +15,7 @@ I called my test project esempio and posted it on GitHub: [esempio](https://gith
 
 I used rebar to create the initial application skeleton files:
 
-{% highlight erlang %}
+```
 $ mkdir esempio
 $ cd esempio
 $ rebar create-app appid=esempio
@@ -23,7 +23,7 @@ $ rebar create-app appid=esempio
 Writing src/esempio.app.src
 Writing src/esempio_app.erl
 Writing src/esempio_sup.erl
-{% endhighlight %}
+```
 
 I added a gen_server module, esempio_server.erl which is supervised by esempio_sup.erl and contains some lager log statements.
 
@@ -31,51 +31,48 @@ I created a rebar.config file and added a dependency for lager along with its re
 
 __rebar.config file__
 
-{% highlight erlang %}
+```
 {sub_dirs, ["rel"]}.
 
 {require_otp_vsn, "R15"}.
 
-{erl_opts, [
-    debug_info,
-    {parse_transform, lager_transform}
-    ]}.
-{deps, [
-    {lager, "1.2.1", {git, "git://github.com/basho/lager.git", {tag, "1.2.1"}}}
-    ]}.
-{% endhighlight %}
+{erl_opts,
+    [debug_info,
+     {parse_transform, lager_transform}]}.
+
+{deps,
+    [{lager, "1.2.1", {git, "git://github.com/basho/lager.git", {tag, "1.2.1"}}}]}.
+```
 
 I added lager as a dependency in the application resource file: esempio.app.src. This will prevent the esempio application from starting until lager is running.
 
 __esempio.app.src file (excerpt)__
 
-{% highlight erlang %}
+```
 ...
-{applications, [
-                kernel,
+{applications, [kernel,
                 stdlib,
-                lager
-               ]},
+                lager]},
 ...
-{% endhighlight %}
+```
 
 I used rebar to resolve the lager dependency and pull its application code into the deps subdirectory:
 
-{% highlight erlang %}
+```
 $ rebar get-deps
 ==> rel (get-deps)
 ==> esempio (get-deps)
 Pulling lager from {git,"git://github.com/basho/lager.git",{tag,"1.2.1"}}
 Cloning into 'lager'...
 ==> lager (get-deps)
-{% endhighlight %}
+```
 <br />
 
 # Create esempio release
 
 I used the same name for the release as I did for the main application which is perfectly acceptable. I used rebar to create the OTP release skeleton files:
 
-{% highlight erlang %}
+```
 $ mkdir rel
 $ cd rel
 $ rebar create-node nodeid=esempio
@@ -89,7 +86,7 @@ Writing files/vm.args
 Writing files/esempio.cmd
 Writing files/start_erl.cmd
 Writing files/install_upgrade.escript
-{% endhighlight %}
+```
 
 I made the following changes to the generated files:
 
@@ -112,24 +109,19 @@ I edited the rel/reltool.config file and made the following changes:
 
 __reltool.config file__
 
-{% highlight erlang %}
-{sys, [
-       {lib_dirs, ["../deps"]},
+```
+{sys, [{lib_dirs, ["../deps"]},
        {erts, [{mod_cond, derived}, {app_file, strip}]},
        {app_file, strip},
        {rel, "esempio", "1",
-        [
-         kernel,
+        [kernel,
          stdlib,
          sasl,
          lager,
-         esempio
-        ]},
+         esempio]},
        {rel, "start_clean", "",
-        [
-         kernel,
-         stdlib
-        ]},
+        [kernel,
+         stdlib]},
        {boot_rel, "esempio"},
        {profile, embedded},
        {excl_archive_filters, [".\*"]}, %% Do not archive built libs
@@ -138,20 +130,17 @@ __reltool.config file__
        {excl_app_filters, ["\.gitignore"]},
        {app, hipe, [{incl_cond, exclude}]},
        {app, lager, [{incl_cond, include}]},
-       {app, esempio, [{mod_cond, app}, {incl_cond, include}, {lib_dir, ".."}]}
-      ]}.
+       {app, esempio, [{mod_cond, app}, {incl_cond, include}, {lib_dir, ".."}]}]}.
 
 {target_dir, "esempio"}.
 
-{overlay, [
-           {mkdir, "log"},
+{overlay, [{mkdir, "log"},
            {copy, "files/erl", "\{\{erts_vsn\}\}/bin/erl"},
            {copy, "files/nodetool", "\{\{erts_vsn\}\}/bin/nodetool"},
            {copy, "files/esempio", "bin/esempio"},
            {copy, "files/app.config", "etc/app.config"},
-           {copy, "files/vm.args", "releases/\{\{rel_vsn\}\}/vm.args"}
-          ]}.
-{% endhighlight %}
+           {copy, "files/vm.args", "releases/\{\{rel_vsn\}\}/vm.args"}]}.
+```
 
 I edited the rel/files/app.config file and made the following changes:
 
@@ -161,37 +150,32 @@ I edited the rel/files/app.config file and made the following changes:
 
 __app.config file__
 
-{% highlight erlang %}
-[
- {sasl, [{sasl_error_logger, false}]},
+```
+[{sasl, [{sasl_error_logger, false}]},
 
- {esempio, [
-    {esempio_config, normal}
-    ]},
+ {esempio, [{esempio_config, normal}]},
 
- {lager, [
-    {handlers,
-        [{lager_console_backend, debug},
-         {lager_file_backend,
-             [{"log/error.log", error, 10485760, "$D0", 5},
-              {"log/console.log", debug, 10485760, "$D0", 5}]}]},
-    {crash_log,"log/crash.log"},
-    {crash_log_msg_size,65536},
-    {crash_log_size,10485760},
-    {crash_log_date,"$D0"},
-    {crash_log_count,5},
-    {error_logger_redirect,true}
-    ]}
-].
-{% endhighlight %}
+ {lager,
+    [{handlers,
+         [{lager_console_backend, debug},
+          {lager_file_backend,
+              [{"log/error.log", error, 10485760, "$D0", 5},
+               {"log/console.log", debug, 10485760, "$D0", 5}]}]},
+     {crash_log,"log/crash.log"},
+     {crash_log_msg_size,65536},
+     {crash_log_size,10485760},
+     {crash_log_date,"$D0"},
+     {crash_log_count,5},
+     {error_logger_redirect,true}]}].
+```
 
 Esempio configuration parameters can be accessed like this example from esempio_server module.
 
 __esempio_server.erl (excerpt)__
 
-{% highlight erlang %}
+```
 ...
 EsempioConfig = application:get_env(esempio, esempio_config),
 lager:info("esempio_config: ~p", [EsempioConfig]),
 ...
-{% endhighlight %}
+```

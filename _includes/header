@@ -1,6 +1,0 @@
-<div class="header">
-  <div class="header-link title">
-  {{ page.title }}
-  </div>
-  <a class="header-link" href="/index.html">home</a>
-</div>
