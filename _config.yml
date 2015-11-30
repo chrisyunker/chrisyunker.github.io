@@ -2,8 +2,8 @@ permalink: /:year/:month/:day/:title
 
 safe: true
 lsi: false
-highlighter: pygments
 markdown: redcarpet
+highlighter: pygments
 
 title: Chris Yunker
 email: chrisyunker@gmail.com
@@ -18,8 +18,6 @@ analytics:
 
 comments:
   disqus_id: chrisyunkerblog
-
-production_url: http://chrisyunker.github.io
 
 exclude: ["vendor"]
 
