@@ -6,22 +6,22 @@ category: erlang recursion map
 tags: [erlang, recursion, map]
 ---
 
-#### Erlang Map Function
+### Erlang Map Function
 
 The Erlang standard lib function **lists:map** is a higher order function which applies a function to each element of an input list to produce an output list.
 
 **lists:map Specification**
 
-```
+{% highlight erlang %}
 map(Fun, List1) -> List2
 
 Fun = fun((A) -> B)
 List1 = [A]
 List2 = [B]
 A = B = term()
-```
+{% endhighlight %}
 
-#### Implementing Map Function
+### Implementing Map Function
 
 If we tried to implement this function without using the standard lib, there's a few ways we could do it.
 
@@ -37,7 +37,7 @@ The following module [map.erl](https://github.com/chrisyunker/blog_code/blob/mas
 
 **map.erl**
 
-```
+{% highlight erlang %}
   1 -module(map).
   2 -author('Chris Yunker <chrisyunker@gmail.com>').
   3
@@ -58,9 +58,9 @@ The following module [map.erl](https://github.com/chrisyunker/blog_code/blob/mas
  18     [Fun(H) | map_body(Fun, T)];
  19 map_body(_Fun, []) ->
  20     [].
-```
+{% endhighlight %}
 
-#### Tail vs Body Recursion
+### Tail vs Body Recursion
 
 The function **map_tail/2** is tail recursive since the recursive function call is the last statement of the function clause (line 14).
 The function **map_body/2** is body recursive since the recursive function call is not the last statement in the function clause (line 18).
@@ -82,11 +82,11 @@ This agrees with the standard lib implementation of **lists:map** which is body 
 
 **OTP 18.1 lists:map Implementation**
 
-```
+{% highlight erlang %}
 map(F, [H|T]) ->
     [F(H)|map(F, T)];
 map(F, []) when is_function(F, 1) -> [].
-```
+{% endhighlight %}
 
 Note that if this were a function which either 1) generated a list which didn't need to be reversed or 2) generated an output term which stayed a constant size, then a tail recursive implementation would be better.
 

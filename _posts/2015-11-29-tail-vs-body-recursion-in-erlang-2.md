@@ -6,7 +6,7 @@ category: erlang recursion bytecode
 tags: [erlang, recursion, bytecode]
 ---
 
-#### Recursion in Erlang Bytecode
+### Recursion in Erlang Bytecode
 
 In [part 1](/2015/11/29/tail-vs-body-recursion-in-erlang-1), I talked a little about how Erlang optimizes tail recursive functions, a process generally known as Tail Call Optimization (TCO).
 To verify this, we can compile the functions into Erlang assembler source code and take a look.
@@ -15,9 +15,9 @@ Erlang assembler source is the disassembled bytecode which gets converted to a B
 The **erlc** compiler command has a flag (-S) to compile into Erlang assembly.
 I compiled my **map.erl** module into an Erlang assembler file **map.S**.
 
-```
-erlc -S map.erl
-```
+{% highlight bash %}
+$ erlc -S map.erl
+{% endhighlight %}
 
 You can see the full results here: [map.S](https://github.com/chrisyunker/blog_code/blob/master/recursion/assembly/map.S)
 
@@ -32,7 +32,7 @@ A few notes about Erlang assembly:
 
 **Assembly code for map_tail/3**
 
-```
+{% highlight erlang %}
  19 {function, map_tail, 3, 4}.
  20   {label,3}.
  21     {line,[{location,"map.erl",11}]}.
@@ -57,7 +57,7 @@ A few notes about Erlang assembly:
  40     {move,{x,2},{x,0}}.
  41     {line,[{location,"map.erl",12}]}.
  42     {call_ext_only,1,{extfunc,lists,reverse,1}}.
-```
+{% endhighlight %}
 
 Lines (24-27) implements the main function clause which executes the mapping.
 It invokes a recursive call with the **call_last/3** opcode.
@@ -65,17 +65,17 @@ I pulled the description from the [genop.tab](https://github.com/erlang/otp/blob
 
 **Opcode call_last/3 comments**
 
-```
+{% highlight erlang %}
 ## @spec call_last Arity Label Deallocate
 ## @doc Deallocate and do a tail recursive call to the function at Label.
 ##      Do not update the CP register.
 ##      Before the call deallocate Deallocate words of stack.
 5: call_last/3
-```
+{% endhighlight %}
 
 **Assembly code for map_body/2**
 
-```
+{% highlight erlang %}
  45 {function, map_body, 2, 7}.
  46   {label,6}.
  47     {line,[{location,"map.erl",17}]}.
@@ -104,7 +104,7 @@ I pulled the description from the [genop.tab](https://github.com/erlang/otp/blob
  70     {test,is_nil,{f,6},[{x,1}]}.
  71     {move,nil,{x,0}}.
  72     return.
-```
+{% endhighlight %}
 
 Lines (50-68) implement the main function clause which executes the mapping.
 It invokes a recursive call with the **call/2** opcode.
@@ -112,12 +112,12 @@ I pulled the description from the [genop.tab](https://github.com/erlang/otp/blob
 
 **Opcode call/2 comments**
 
-```
+{% highlight erlang %}
 ## @spec call Arity Label
 ## @doc Call the function at Label.
 ##      Save the next instruction as the return address in the CP register.
 4: call/2
-```
+{% endhighlight %}
 
 The tail recursive implementation replaces **call/2** with **call_last/3**.
 From the description, **call_last/3** will deallocate the stack frame before making the function call and not update the CP register.

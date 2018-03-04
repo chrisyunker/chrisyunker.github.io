@@ -5,21 +5,20 @@ description: ""
 category: encoding
 tags: [encoding utf8 latin1 ascii unicode mysql]
 ---
-<p class="date">2013 May 05</p>
 
 I recently had the misfortune of dealing with a MySQL database which got its data double UTF-8 encoded. It happened during a software deploy so my colleagues and I had to come up with a quick solution and get our database back into live service. Luckily, we were able to find a stopgap solution, and later, during the next maintenance window, we were able to fix the data for good.
 
 In the process, I learned more about MySQL and character encodings schemes, so I thought I'd share it here in a blog post.
 
 
-###What Happened###
+### What Happened
 
 During the software deploy, we migrated a MySQL database to a new server. While QA testing we realized that we had an encoding issue with the data on the new server. I wasn't involved with the database migration so I can't speak to how it happened, but I was able to piece together what happened.
 
 Our data is UTF-8 encoded and all our MySQL database tables are configured for UTF-8. When importing the data into the new database, the import process interpreted the data as latin1 and translated it to UTF-8 since it was storing the data in UTF-8 tables. Because the data was already UTF-8 encoded, it essentially got encoded twice as UTF-8.
 
 
-###Double Encoded Data###
+### Double Encoded Data
 
 Let me explain more what I mean by double encoded UTF-8 data as well as some basic definitions.
 
@@ -44,14 +43,14 @@ The first point is interesting, because if you deal with mostly English locales 
 The last point indicates that the double UTF-8 encoding is a lossless translation. We should be able to run the data through a UTF-8 -> latin1 translation to recover the original data. Because of this, we were able to implement a stopgap solution without having to revert databases.
 
 
-###Stopgap Solution###
+### Stopgap Solution
 
 The stopgap solution was rather simple. We changed our application to set the MySQL ODBC connection from UTF-8 to latin1. This caused MySQL to perform a UTF-8 -> latin1 translation so the double encoded UTF-8 data became single encoded. The application continued to treat the data as UTF-8 so things worked mostly well with that fix.
 
 Could we have left it like this? Not really. The database size was now bloated and there was obvious CPU overhead with having to encode/decode data with every database transaction. If these were the only side effects, it might have been tolerable to leave this setup as-is since fixing the data was not easy due to the volume of it. However, one big problem this presented was that text limited fields might get truncated since the double encoding bloat wasn't accounted for when the application wrote to the database. For example, an application which tried to store a 10 character Chinese string into a varchar(10) field would find the value truncated when it read it back. Since we didn't have likely cases for this to happen, it was acceptable as a stopgap, but unacceptable for anything longer. Therefore we needed to fix the data at the next maintenance window. 
 
 
-###Fixing the Data###
+### Fixing the Data
 
 Fixing the data also turned out to be a simple solution. We performed a data migration to second MySQL database server with the export process configured to export to latin1. This caused MySQL to translate the double encoded UTF-8 data to single encoded UTF-8. The data was imported into the second server as UTF-8 data (correctly this time).
 

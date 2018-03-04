@@ -5,17 +5,16 @@ description: ""
 category: erlang
 tags: [erlang otp rebar lager release]
 ---
-<p class="date">2012 Dec 28</p>
 
-In the past week, I've been bundling one of my Erlang projects into an OTP release. I struggled a bit using [rebar](https://github.com/basho/rebar), so I thought I'd put my notes in a blog post and share what I did. I created a simple test project to learn the framework. One of my projects dependencies is the [lager](https://github.com/basho/lager) application for logging. Therefore, my test project also had a dependency on lager.
+In the past week, I've been bundling one of my Erlang projects into an OTP release. I struggled a bit using [rebar](https://github.com/rebar/rebar), so I thought I'd put my notes in a blog post and share what I did. I created a simple test project to learn the framework. One of my projects dependencies is the [lager](https://github.com/erlang-lager/lager) application for logging. Therefore, my test project also had a dependency on lager.
 
 I called my test project esempio and posted it on GitHub: [esempio](https://github.com/chrisyunker/esempio)
 
-# Create esempio application
+### Create esempio application
 
 I used rebar to create the initial application skeleton files:
 
-```
+{% highlight bash %}
 $ mkdir esempio
 $ cd esempio
 $ rebar create-app appid=esempio
@@ -23,15 +22,15 @@ $ rebar create-app appid=esempio
 Writing src/esempio.app.src
 Writing src/esempio_app.erl
 Writing src/esempio_sup.erl
-```
+{% endhighlight %}
 
 I added a gen_server module, esempio_server.erl which is supervised by esempio_sup.erl and contains some lager log statements.
 
 I created a rebar.config file and added a dependency for lager along with its required erl_opts (see lager project for details). I added the 'rel' subdirectory so rebar knows to check it. I also added a statement to require OTP version R15 since some of the release configuration statements I'm using require it.
 
-__rebar.config file__
+**rebar.config file**
 
-```
+{% highlight erlang %}
 {sub_dirs, ["rel"]}.
 
 {require_otp_vsn, "R15"}.
@@ -42,37 +41,39 @@ __rebar.config file__
 
 {deps,
     [{lager, "1.2.1", {git, "git://github.com/basho/lager.git", {tag, "1.2.1"}}}]}.
-```
+{% endhighlight %}
 
 I added lager as a dependency in the application resource file: esempio.app.src. This will prevent the esempio application from starting until lager is running.
 
-__esempio.app.src file (excerpt)__
+**esempio.app.src file (excerpt)**
 
-```
+{% highlight erlang %}
 ...
+
 {applications, [kernel,
                 stdlib,
                 lager]},
+
 ...
-```
+{% endhighlight %}
 
 I used rebar to resolve the lager dependency and pull its application code into the deps subdirectory:
 
-```
+{% highlight bash %}
 $ rebar get-deps
 ==> rel (get-deps)
 ==> esempio (get-deps)
 Pulling lager from {git,"git://github.com/basho/lager.git",{tag,"1.2.1"}}
 Cloning into 'lager'...
 ==> lager (get-deps)
-```
+{% endhighlight %}
 <br />
 
-# Create esempio release
+### Create esempio release
 
 I used the same name for the release as I did for the main application which is perfectly acceptable. I used rebar to create the OTP release skeleton files:
 
-```
+{% highlight bash %}
 $ mkdir rel
 $ cd rel
 $ rebar create-node nodeid=esempio
@@ -86,7 +87,7 @@ Writing files/vm.args
 Writing files/esempio.cmd
 Writing files/start_erl.cmd
 Writing files/install_upgrade.escript
-```
+{% endhighlight %}
 
 I made the following changes to the generated files:
 
@@ -107,9 +108,9 @@ I edited the rel/reltool.config file and made the following changes:
 + Renamed sys.config to app.config and changed to install to etc directory
 + Removed copy statements of previously deleted files (\*.cmd and install_upgrade.escript)
 
-__reltool.config file__
+**reltool.config file**
 
-```
+{% highlight erlang %}
 {sys, [{lib_dirs, ["../deps"]},
        {erts, [{mod_cond, derived}, {app_file, strip}]},
        {app_file, strip},
@@ -140,7 +141,7 @@ __reltool.config file__
            {copy, "files/esempio", "bin/esempio"},
            {copy, "files/app.config", "etc/app.config"},
            {copy, "files/vm.args", "releases/\{\{rel_vsn\}\}/vm.args"}]}.
-```
+{% endhighlight %}
 
 I edited the rel/files/app.config file and made the following changes:
 
@@ -148,9 +149,9 @@ I edited the rel/files/app.config file and made the following changes:
 + Add lager configuration
 + Add esempio configuration
 
-__app.config file__
+**app.config file**
 
-```
+{% highlight erlang %}
 [{sasl, [{sasl_error_logger, false}]},
 
  {esempio, [{esempio_config, normal}]},
@@ -167,15 +168,17 @@ __app.config file__
      {crash_log_date,"$D0"},
      {crash_log_count,5},
      {error_logger_redirect,true}]}].
-```
+{% endhighlight %}
 
 Esempio configuration parameters can be accessed like this example from esempio_server module.
 
-__esempio_server.erl (excerpt)__
+**esempio_server.erl (excerpt)**
 
-```
+{% highlight erlang %}
 ...
+
 EsempioConfig = application:get_env(esempio, esempio_config),
 lager:info("esempio_config: ~p", [EsempioConfig]),
+
 ...
-```
+{% endhighlight %}
