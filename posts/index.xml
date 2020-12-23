@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on </title>
+    <link>https://www.yunker.io/posts/</link>
+    <description>Recent content in Posts on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Nov 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://www.yunker.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tail vs. Body Recursion in Erlang Part 1</title>
+      <link>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/</link>
+      <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/</guid>
+      <description>Erlang Map Function The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+lists:map Specification
+map(Fun, List1) -&amp;gt; List2 Fun = fun((A) -&amp;gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function If we tried to implement this function without using the standard lib, there&amp;rsquo;s a few ways we could do it.</description>
+    </item>
+    
+    <item>
+      <title>Tail vs. Body Recursion in Erlang Part 2</title>
+      <link>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-2/</link>
+      <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-2/</guid>
+      <description>Recursion in Erlang Bytecode In part 1, I talked a little about how Erlang optimizes tail recursive functions, a process generally known as Tail Call Optimization (TCO). To verify this, we can compile the functions into Erlang assembler source code and take a look. Erlang assembler source is the disassembled bytecode which gets converted to a BEAM file.
+The erlc compiler command has a flag (-S) to compile into Erlang assembly.</description>
+    </item>
+    
+    <item>
+      <title>Double Encoded UTF-8 Data in MySQL</title>
+      <link>https://www.yunker.io/posts/double-encoded-data-in-mysql/</link>
+      <pubDate>Sat, 18 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/posts/double-encoded-data-in-mysql/</guid>
+      <description>I recently had the misfortune of dealing with a MySQL database which got its data double UTF-8 encoded. It happened during a software deploy so my colleagues and I had to come up with a quick solution and get our database back into live service. Luckily, we were able to find a stopgap solution, and later, during the next maintenance window, we were able to fix the data for good.</description>
+    </item>
+    
+  </channel>
+</rss>

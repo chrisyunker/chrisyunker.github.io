@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+
+    <meta name="author" content="Chris Yunker">
+    <meta name="description" content="Erlang Map Function The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+lists:map Specification
+map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it.">
+    <meta name="keywords" content="">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tail vs. Body Recursion in Erlang Part 1"/>
+<meta name="twitter:description" content="Erlang Map Function The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+lists:map Specification
+map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it."/>
+
+    <meta property="og:title" content="Tail vs. Body Recursion in Erlang Part 1" />
+<meta property="og:description" content="Erlang Map Function The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+lists:map Specification
+map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/" />
+<meta property="article:published_time" content="2015-11-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-11-29T00:00:00+00:00" />
+
+
+    <title>
+  Tail vs. Body Recursion in Erlang Part 1 · 
+</title>
+
+    
+      <link rel="canonical" href="https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/">
+    
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css"
+      integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8/normalize.min.css">
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.f01c647a0d25b40da992a37c3376291185eed8a50ced8c26cc2c0bcfe38c97df.css" integrity="sha256-8Bxkeg0ltA2pkqN8M3YpEYXu2KUM7YwmzCwLz&#43;OMl98=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.1/twemoji.min.js"
+        integrity="sha384-5f4X0lBluNY/Ib4VhGx0Pf6iDCF99VGXJIyYy7dDLY5QlEd7Ap0hICSSZA1XYbc4" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.79.1" />
+  </head>
+
+  
+  
+  <body class="colorscheme-light"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/">Home</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Tail vs. Body Recursion in Erlang Part 1</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2015-11-29T00:00:00Z'>
+                29 Nov 2015
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <a href="/tags/erlang/">erlang</a>
+      <span class="separator">•</span>
+    <a href="/tags/recursion/">recursion</a>
+      <span class="separator">•</span>
+    <a href="/tags/maps/">maps</a></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="erlang-map-function">Erlang Map Function</h2>
+<p>The Erlang standard lib function <a href="http://erlang.org/doc/man/lists.html#map-2">lists:map</a> is a higher order function which applies a function to each element of an input list to produce an output list.</p>
+<p><strong>lists:map Specification</strong></p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">map(Fun, List1) -&gt; List2
+
+Fun = <span style="color:#fff;font-weight:bold">fun</span>((A) -&gt; B)
+List1 = [A]
+List2 = [B]
+A = B = term()</code></pre></div>
+<h2 id="implementing-map-function">Implementing Map Function</h2>
+<p>If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it.</p>
+<p>It&rsquo;s a recursive function, so the natural instinct is to make it tail recursive rather than body recursive.
+Tail recursive functions get optimized in the Erlang bytecode such that the current frame of the call stack gets deallocated before making the recursive function call, resulting in the function running in the same stack frame.
+Body recursive functions, on the other hand, cannot deallocate the current frame until the recursive function returns.
+Therefore each recursive call will create a new stack frame, and the stack will grow the length of the input list.</p>
+<p>Generally, a tail recursive implementation is preferred. However, there are cases where other factors dominate and a body recursive implementation is better.
+The map function is one of those cases.</p>
+<p>The following module <a href="https://github.com/chrisyunker/blog_code/blob/master/recursion/src/map.erl">map.erl</a> contains both tail and body recursive implementations.</p>
+<p><strong>map.erl</strong></p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">-module(map).
+-author(&#39;Chris Yunker &lt;chrisyunker@gmail.com&gt;&#39;).
+
+-export([map_tail/<span style="color:#ff0;font-weight:bold">2</span>,
+         map_body/<span style="color:#ff0;font-weight:bold">2</span>]).
+
+<span style="color:#007f7f">%% Tail recursive implementation of lists:map
+</span><span style="color:#007f7f"></span>map_tail(Fun, List) -&gt;
+    map_tail(Fun, List, []).
+
+map_tail(_Fun, [], Acc) -&gt;
+    lists:reverse(Acc);
+map_tail(Fun, [H | T], Acc) -&gt;
+    map_tail(Fun, T, [Fun(H) | Acc]).
+
+<span style="color:#007f7f">%% Body recursive implementation of lists:map
+</span><span style="color:#007f7f"></span>map_body(Fun, [H | T]) -&gt;
+    [Fun(H) | map_body(Fun, T)];
+map_body(_Fun, []) -&gt;
+    [].</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="tail-vs-body-recursion">Tail vs Body Recursion</h2>
+<p>The function <strong>map_tail/2</strong> is tail recursive since the recursive function call is the last statement of the function clause (line 14).
+The function <strong>map_body/2</strong> is body recursive since the recursive function call is not the last statement in the function clause (line 18).</p>
+<p>The following factors are why, for this particular function, the body recursive implementation is better.</p>
+<ol>
+<li>
+<p>The map function is a type of recursive function in which the output term grows with each iteration of the function.
+This is in contrast which other types of recursive functions in which the output stays a constant size regardless of the number of iterations (e.g. a function which adds a list of numbers).</p>
+</li>
+<li>
+<p>The tail recursive implementation constructs the output list in the reverse order.
+So before returning the result, it has to call <a href="http://erlang.org/doc/man/lists.html#reverse-1">lists:reverse</a>.</p>
+</li>
+<li>
+<p>Since the OTP R12B release, optimizations have been made to reduce the memory footprint on the stack for body recursive calls.
+In the case of the map function, the memory consumed storing each output element in a separate stack frame (body recursive) is roughly equivalent to the memory consumed storing the entire output list in one stack frame (tail recursive).</p>
+</li>
+</ol>
+<p>Given these factors, the body recursive implementation is clearly better.
+It uses roughly the same memory as the tail recursive implementation and doesn&rsquo;t require a call to reverse the list.
+This agrees with the standard lib implementation of <strong>lists:map</strong> which is body recursive (see below).</p>
+<p><strong>OTP 18.1 lists:map Implementation</strong></p>
+<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">map(F, [H|T]) -&gt;
+    [F(H)|map(F, T)];
+map(F, []) <span style="color:#fff;font-weight:bold">when</span> <span style="color:#fff;font-weight:bold">is_function</span>(F, <span style="color:#ff0;font-weight:bold">1</span>) -&gt; [].</code></pre></td></tr></table>
+</div>
+</div>
+<p>Note that if this were a function which either 1) generated a list which didn&rsquo;t need to be reversed or 2) generated an output term which stayed a constant size, then a tail recursive implementation would be better.</p>
+<p>More information can be found here:</p>
+<ul>
+<li><a href="http://www.erlang.org/doc/efficiency_guide/myths.html#id60450">Myth: Tail-Recursive Functions are Much Faster Than Recursive Functions</a></li>
+<li><a href="http://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html">Erlang&rsquo;s Tail Recursion is Not a Silver Bullet</a></li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "chrisyunkerblog" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+      
+        
+        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-58148811-6', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+    
+
+    
+
+    
+
+    
+  </body>
+
+</html>
