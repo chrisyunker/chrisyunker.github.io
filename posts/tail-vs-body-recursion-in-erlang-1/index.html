@@ -149,12 +149,12 @@ map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B
         <h2 id="erlang-map-function">Erlang Map Function</h2>
 <p>The Erlang standard lib function <a href="http://erlang.org/doc/man/lists.html#map-2">lists:map</a> is a higher order function which applies a function to each element of an input list to produce an output list.</p>
 <p><strong>lists:map Specification</strong></p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">map(Fun, List1) -&gt; List2
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"><span style="color:#268bd2">map</span>(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List1</span>) <span style="color:#719e07">-&gt;</span> <span style="color:#268bd2">List2</span>
 
-Fun = <span style="color:#fff;font-weight:bold">fun</span>((A) -&gt; B)
-List1 = [A]
-List2 = [B]
-A = B = term()</code></pre></div>
+<span style="color:#268bd2">Fun</span> <span style="color:#719e07">=</span> <span style="color:#719e07">fun</span>((<span style="color:#268bd2">A</span>) <span style="color:#719e07">-&gt;</span> <span style="color:#268bd2">B</span>)
+<span style="color:#268bd2">List1</span> <span style="color:#719e07">=</span> [<span style="color:#268bd2">A</span>]
+<span style="color:#268bd2">List2</span> <span style="color:#719e07">=</span> [<span style="color:#268bd2">B</span>]
+<span style="color:#268bd2">A</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">B</span> <span style="color:#719e07">=</span> term()</code></pre></div>
 <h2 id="implementing-map-function">Implementing Map Function</h2>
 <p>If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it.</p>
 <p>It&rsquo;s a recursive function, so the natural instinct is to make it tail recursive rather than body recursive.
@@ -165,49 +165,49 @@ Therefore each recursive call will create a new stack frame, and the stack will 
 The map function is one of those cases.</p>
 <p>The following module <a href="https://github.com/chrisyunker/blog_code/blob/master/recursion/src/map.erl">map.erl</a> contains both tail and body recursive implementations.</p>
 <p><strong>map.erl</strong></p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">20
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">-module(map).
--author(&#39;Chris Yunker &lt;chrisyunker@gmail.com&gt;&#39;).
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">-<span style="color:#cb4b16">module</span>(map).
+-<span style="color:#cb4b16">author</span>(&#39;Chris Yunker &lt;chrisyunker@gmail.com&gt;&#39;).
 
--export([map_tail/<span style="color:#ff0;font-weight:bold">2</span>,
-         map_body/<span style="color:#ff0;font-weight:bold">2</span>]).
+-<span style="color:#cb4b16">export</span>([map_tail<span style="color:#719e07">/</span><span style="color:#2aa198">2</span>,
+         map_body<span style="color:#719e07">/</span><span style="color:#2aa198">2</span>]).
 
-<span style="color:#007f7f">%% Tail recursive implementation of lists:map
-</span><span style="color:#007f7f"></span>map_tail(Fun, List) -&gt;
-    map_tail(Fun, List, []).
+<span style="color:#586e75">%% Tail recursive implementation of lists:map
+</span><span style="color:#586e75"></span><span style="color:#268bd2">map_tail</span>(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List</span>) <span style="color:#719e07">-&gt;</span>
+    map_tail(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List</span>, []).
 
-map_tail(_Fun, [], Acc) -&gt;
-    lists:reverse(Acc);
-map_tail(Fun, [H | T], Acc) -&gt;
-    map_tail(Fun, T, [Fun(H) | Acc]).
+<span style="color:#268bd2">map_tail</span>(_<span style="color:#268bd2">Fun</span>, [], <span style="color:#268bd2">Acc</span>) <span style="color:#719e07">-&gt;</span>
+    lists:<span style="color:#268bd2">reverse</span>(<span style="color:#268bd2">Acc</span>);
+<span style="color:#268bd2">map_tail</span>(<span style="color:#268bd2">Fun</span>, [<span style="color:#268bd2">H</span> | <span style="color:#268bd2">T</span>], <span style="color:#268bd2">Acc</span>) <span style="color:#719e07">-&gt;</span>
+    map_tail(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">T</span>, [<span style="color:#268bd2">Fun</span>(<span style="color:#268bd2">H</span>) | <span style="color:#268bd2">Acc</span>]).
 
-<span style="color:#007f7f">%% Body recursive implementation of lists:map
-</span><span style="color:#007f7f"></span>map_body(Fun, [H | T]) -&gt;
-    [Fun(H) | map_body(Fun, T)];
-map_body(_Fun, []) -&gt;
+<span style="color:#586e75">%% Body recursive implementation of lists:map
+</span><span style="color:#586e75"></span><span style="color:#268bd2">map_body</span>(<span style="color:#268bd2">Fun</span>, [<span style="color:#268bd2">H</span> | <span style="color:#268bd2">T</span>]) <span style="color:#719e07">-&gt;</span>
+    [<span style="color:#268bd2">Fun</span>(<span style="color:#268bd2">H</span>) | map_body(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">T</span>)];
+<span style="color:#268bd2">map_body</span>(_<span style="color:#268bd2">Fun</span>, []) <span style="color:#719e07">-&gt;</span>
     [].</code></pre></td></tr></table>
 </div>
 </div>
@@ -233,16 +233,16 @@ In the case of the map function, the memory consumed storing each output element
 It uses roughly the same memory as the tail recursive implementation and doesn&rsquo;t require a call to reverse the list.
 This agrees with the standard lib implementation of <strong>lists:map</strong> which is body recursive (see below).</p>
 <p><strong>OTP 18.1 lists:map Implementation</strong></p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">3
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">map(F, [H|T]) -&gt;
-    [F(H)|map(F, T)];
-map(F, []) <span style="color:#fff;font-weight:bold">when</span> <span style="color:#fff;font-weight:bold">is_function</span>(F, <span style="color:#ff0;font-weight:bold">1</span>) -&gt; [].</code></pre></td></tr></table>
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"><span style="color:#268bd2">map</span>(<span style="color:#268bd2">F</span>, [<span style="color:#268bd2">H</span>|<span style="color:#268bd2">T</span>]) <span style="color:#719e07">-&gt;</span>
+    [<span style="color:#268bd2">F</span>(<span style="color:#268bd2">H</span>)|map(<span style="color:#268bd2">F</span>, <span style="color:#268bd2">T</span>)];
+<span style="color:#268bd2">map</span>(<span style="color:#268bd2">F</span>, []) <span style="color:#719e07">when</span> <span style="color:#b58900">is_function</span>(<span style="color:#268bd2">F</span>, <span style="color:#2aa198">1</span>) <span style="color:#719e07">-&gt;</span> [].</code></pre></td></tr></table>
 </div>
 </div>
 <p>Note that if this were a function which either 1) generated a list which didn&rsquo;t need to be reversed or 2) generated an output term which stayed a constant size, then a tail recursive implementation would be better.</p>

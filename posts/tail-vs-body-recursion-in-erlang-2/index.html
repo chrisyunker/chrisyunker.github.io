@@ -148,7 +148,7 @@ The erlc compiler command has a flag (-S) to compile into Erlang assembly." />
 To verify this, we can compile the functions into Erlang assembler source code and take a look.
 Erlang assembler source is the disassembled bytecode which gets converted to a BEAM file.</p>
 <p>The <a href="https://erlang.org/doc/man/erlc.html">erlc</a> compiler command has a flag (-S) to compile into Erlang assembly.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ erlc -S map.erl</code></pre></div>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ erlc -S map.erl</code></pre></div>
 <p>I compiled my <a href="https://github.com/chrisyunker/blog_code/blob/master/recursion/src/map.erl">map.erl</a> module into an Erlang assembler file <a href="https://github.com/chrisyunker/blog_code/blob/master/recursion/assembly/map.S">map.S</a></p>
 <p>A few notes about Erlang assembly:</p>
 <ul>
@@ -159,129 +159,129 @@ Erlang assembler source is the disassembled bytecode which gets converted to a B
 <li>The &lsquo;y&rsquo; registers are used for local variables</li>
 </ul>
 <p><strong>Assembly code for map_tail/3</strong></p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">39
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">40
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">41
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">42
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">42
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"> {function, map_tail, <span style="color:#ff0;font-weight:bold">3</span>, <span style="color:#ff0;font-weight:bold">4</span>}.
-   {label,<span style="color:#ff0;font-weight:bold">3</span>}.
-     {line,[{location,<span style="color:#0ff;font-weight:bold">&#34;map.erl&#34;</span>,<span style="color:#ff0;font-weight:bold">11</span>}]}.
-     {func_info,{atom,map},{atom,map_tail},<span style="color:#ff0;font-weight:bold">3</span>}.
-   {label,<span style="color:#ff0;font-weight:bold">4</span>}.
-     {test,is_nonempty_list,{f,<span style="color:#ff0;font-weight:bold">5</span>},[{x,<span style="color:#ff0;font-weight:bold">1</span>}]}.
-     {allocate,<span style="color:#ff0;font-weight:bold">3</span>,<span style="color:#ff0;font-weight:bold">3</span>}.
-     {get_list,{x,<span style="color:#ff0;font-weight:bold">1</span>},{x,<span style="color:#ff0;font-weight:bold">3</span>},{y,<span style="color:#ff0;font-weight:bold">2</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">0</span>},{x,<span style="color:#ff0;font-weight:bold">1</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">3</span>},{x,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">2</span>},{y,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">1</span>},{y,<span style="color:#ff0;font-weight:bold">1</span>}}.
-     {line,[{location,<span style="color:#0ff;font-weight:bold">&#34;map.erl&#34;</span>,<span style="color:#ff0;font-weight:bold">14</span>}]}.
-     {call_fun,<span style="color:#ff0;font-weight:bold">1</span>}.
-     {test_heap,<span style="color:#ff0;font-weight:bold">2</span>,<span style="color:#ff0;font-weight:bold">1</span>}.
-     {put_list,{x,<span style="color:#ff0;font-weight:bold">0</span>},{y,<span style="color:#ff0;font-weight:bold">0</span>},{x,<span style="color:#ff0;font-weight:bold">2</span>}}.
-     {move,{y,<span style="color:#ff0;font-weight:bold">2</span>},{x,<span style="color:#ff0;font-weight:bold">1</span>}}.
-     {move,{y,<span style="color:#ff0;font-weight:bold">1</span>},{x,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {call_last,<span style="color:#ff0;font-weight:bold">3</span>,{f,<span style="color:#ff0;font-weight:bold">4</span>},<span style="color:#ff0;font-weight:bold">3</span>}.
-   {label,<span style="color:#ff0;font-weight:bold">5</span>}.
-     {test,is_nil,{f,<span style="color:#ff0;font-weight:bold">3</span>},[{x,<span style="color:#ff0;font-weight:bold">1</span>}]}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">2</span>},{x,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {line,[{location,<span style="color:#0ff;font-weight:bold">&#34;map.erl&#34;</span>,<span style="color:#ff0;font-weight:bold">12</span>}]}.
-     {call_ext_only,<span style="color:#ff0;font-weight:bold">1</span>,{extfunc,lists,reverse,<span style="color:#ff0;font-weight:bold">1</span>}}.</code></pre></td></tr></table>
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"> {function, map_tail, <span style="color:#2aa198">3</span>, <span style="color:#2aa198">4</span>}.
+   {label,<span style="color:#2aa198">3</span>}.
+     {line,[{location,<span style="color:#2aa198">&#34;map.erl&#34;</span>,<span style="color:#2aa198">11</span>}]}.
+     {func_info,{atom,map},{atom,map_tail},<span style="color:#2aa198">3</span>}.
+   {label,<span style="color:#2aa198">4</span>}.
+     {test,is_nonempty_list,{f,<span style="color:#2aa198">5</span>},[{x,<span style="color:#2aa198">1</span>}]}.
+     {allocate,<span style="color:#2aa198">3</span>,<span style="color:#2aa198">3</span>}.
+     {get_list,{x,<span style="color:#2aa198">1</span>},{x,<span style="color:#2aa198">3</span>},{y,<span style="color:#2aa198">2</span>}}.
+     {move,{x,<span style="color:#2aa198">0</span>},{x,<span style="color:#2aa198">1</span>}}.
+     {move,{x,<span style="color:#2aa198">3</span>},{x,<span style="color:#2aa198">0</span>}}.
+     {move,{x,<span style="color:#2aa198">2</span>},{y,<span style="color:#2aa198">0</span>}}.
+     {move,{x,<span style="color:#2aa198">1</span>},{y,<span style="color:#2aa198">1</span>}}.
+     {line,[{location,<span style="color:#2aa198">&#34;map.erl&#34;</span>,<span style="color:#2aa198">14</span>}]}.
+     {call_fun,<span style="color:#2aa198">1</span>}.
+     {test_heap,<span style="color:#2aa198">2</span>,<span style="color:#2aa198">1</span>}.
+     {put_list,{x,<span style="color:#2aa198">0</span>},{y,<span style="color:#2aa198">0</span>},{x,<span style="color:#2aa198">2</span>}}.
+     {move,{y,<span style="color:#2aa198">2</span>},{x,<span style="color:#2aa198">1</span>}}.
+     {move,{y,<span style="color:#2aa198">1</span>},{x,<span style="color:#2aa198">0</span>}}.
+     {call_last,<span style="color:#2aa198">3</span>,{f,<span style="color:#2aa198">4</span>},<span style="color:#2aa198">3</span>}.
+   {label,<span style="color:#2aa198">5</span>}.
+     {test,is_nil,{f,<span style="color:#2aa198">3</span>},[{x,<span style="color:#2aa198">1</span>}]}.
+     {move,{x,<span style="color:#2aa198">2</span>},{x,<span style="color:#2aa198">0</span>}}.
+     {line,[{location,<span style="color:#2aa198">&#34;map.erl&#34;</span>,<span style="color:#2aa198">12</span>}]}.
+     {call_ext_only,<span style="color:#2aa198">1</span>,{extfunc,lists,reverse,<span style="color:#2aa198">1</span>}}.</code></pre></td></tr></table>
 </div>
 </div>
 <p>Lines (24-27) implements the main function clause which executes the mapping.
 It invokes a recursive call with the <strong>call_last/3</strong> opcode.
 I pulled the description from the <a href="https://github.com/erlang/otp/blob/OTP-18.1/lib/compiler/src/genop.tab#L48">genop.tab</a> file.</p>
 <p><strong>Opcode call_last/3 comments</strong></p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"><span style="color:#f00">##</span> @spec call_last Arity Label Deallocate
-<span style="color:#f00">##</span> @doc Deallocate and do a tail recursive call to the function at Label.
-<span style="color:#f00">##</span>      Do not update the CP <span style="color:#fff;font-weight:bold">register</span>.
-<span style="color:#f00">##</span>      Before the call deallocate Deallocate words <span style="color:#fff;font-weight:bold">of</span> stack.
-<span style="color:#ff0;font-weight:bold">5</span>: call_last/<span style="color:#ff0;font-weight:bold">3</span></code></pre></div>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">## @spec call_last <span style="color:#268bd2">Arity</span> <span style="color:#268bd2">Label</span> <span style="color:#268bd2">Deallocate</span>
+## @doc <span style="color:#268bd2">Deallocate</span> <span style="color:#719e07">and</span> do a tail recursive call to the function at <span style="color:#268bd2">Label</span>.
+##      <span style="color:#268bd2">Do</span> <span style="color:#719e07">not</span> update the <span style="color:#268bd2">CP</span> <span style="color:#b58900">register</span>.
+##      <span style="color:#268bd2">Before</span> the call deallocate <span style="color:#268bd2">Deallocate</span> words <span style="color:#719e07">of</span> stack.
+<span style="color:#2aa198">5</span>: call_last<span style="color:#719e07">/</span><span style="color:#2aa198">3</span></code></pre></div>
 <p><strong>Assembly code for map_body/2</strong></p>
-<div class="highlight"><div style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">45
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">46
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">47
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">48
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">49
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">50
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">51
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">52
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">53
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">54
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">55
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">56
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">57
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">58
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">59
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">60
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">61
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">62
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">63
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">64
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">65
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">66
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">67
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">68
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">69
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">70
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">71
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#727272">72
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">72
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"> {function, map_body, <span style="color:#ff0;font-weight:bold">2</span>, <span style="color:#ff0;font-weight:bold">7</span>}.
-   {label,<span style="color:#ff0;font-weight:bold">6</span>}.
-     {line,[{location,<span style="color:#0ff;font-weight:bold">&#34;map.erl&#34;</span>,<span style="color:#ff0;font-weight:bold">17</span>}]}.
-     {func_info,{atom,map},{atom,map_body},<span style="color:#ff0;font-weight:bold">2</span>}.
-   {label,<span style="color:#ff0;font-weight:bold">7</span>}.
-     {test,is_nonempty_list,{f,<span style="color:#ff0;font-weight:bold">8</span>},[{x,<span style="color:#ff0;font-weight:bold">1</span>}]}.
-     {allocate,<span style="color:#ff0;font-weight:bold">2</span>,<span style="color:#ff0;font-weight:bold">2</span>}.
-     {get_list,{x,<span style="color:#ff0;font-weight:bold">1</span>},{x,<span style="color:#ff0;font-weight:bold">2</span>},{y,<span style="color:#ff0;font-weight:bold">1</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">0</span>},{x,<span style="color:#ff0;font-weight:bold">1</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">2</span>},{x,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">1</span>},{y,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {line,[{location,<span style="color:#0ff;font-weight:bold">&#34;map.erl&#34;</span>,<span style="color:#ff0;font-weight:bold">18</span>}]}.
-     {call_fun,<span style="color:#ff0;font-weight:bold">1</span>}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">0</span>},{x,<span style="color:#ff0;font-weight:bold">2</span>}}.
-     {move,{y,<span style="color:#ff0;font-weight:bold">1</span>},{x,<span style="color:#ff0;font-weight:bold">1</span>}}.
-     {move,{y,<span style="color:#ff0;font-weight:bold">0</span>},{x,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {move,{x,<span style="color:#ff0;font-weight:bold">2</span>},{y,<span style="color:#ff0;font-weight:bold">1</span>}}.
-     {trim,<span style="color:#ff0;font-weight:bold">1</span>,<span style="color:#ff0;font-weight:bold">1</span>}.
-     {line,[{location,<span style="color:#0ff;font-weight:bold">&#34;map.erl&#34;</span>,<span style="color:#ff0;font-weight:bold">18</span>}]}.
-     {call,<span style="color:#ff0;font-weight:bold">2</span>,{f,<span style="color:#ff0;font-weight:bold">7</span>}}.
-     {test_heap,<span style="color:#ff0;font-weight:bold">2</span>,<span style="color:#ff0;font-weight:bold">1</span>}.
-     {put_list,{y,<span style="color:#ff0;font-weight:bold">0</span>},{x,<span style="color:#ff0;font-weight:bold">0</span>},{x,<span style="color:#ff0;font-weight:bold">0</span>}}.
-     {deallocate,<span style="color:#ff0;font-weight:bold">1</span>}.
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"> {function, map_body, <span style="color:#2aa198">2</span>, <span style="color:#2aa198">7</span>}.
+   {label,<span style="color:#2aa198">6</span>}.
+     {line,[{location,<span style="color:#2aa198">&#34;map.erl&#34;</span>,<span style="color:#2aa198">17</span>}]}.
+     {func_info,{atom,map},{atom,map_body},<span style="color:#2aa198">2</span>}.
+   {label,<span style="color:#2aa198">7</span>}.
+     {test,is_nonempty_list,{f,<span style="color:#2aa198">8</span>},[{x,<span style="color:#2aa198">1</span>}]}.
+     {allocate,<span style="color:#2aa198">2</span>,<span style="color:#2aa198">2</span>}.
+     {get_list,{x,<span style="color:#2aa198">1</span>},{x,<span style="color:#2aa198">2</span>},{y,<span style="color:#2aa198">1</span>}}.
+     {move,{x,<span style="color:#2aa198">0</span>},{x,<span style="color:#2aa198">1</span>}}.
+     {move,{x,<span style="color:#2aa198">2</span>},{x,<span style="color:#2aa198">0</span>}}.
+     {move,{x,<span style="color:#2aa198">1</span>},{y,<span style="color:#2aa198">0</span>}}.
+     {line,[{location,<span style="color:#2aa198">&#34;map.erl&#34;</span>,<span style="color:#2aa198">18</span>}]}.
+     {call_fun,<span style="color:#2aa198">1</span>}.
+     {move,{x,<span style="color:#2aa198">0</span>},{x,<span style="color:#2aa198">2</span>}}.
+     {move,{y,<span style="color:#2aa198">1</span>},{x,<span style="color:#2aa198">1</span>}}.
+     {move,{y,<span style="color:#2aa198">0</span>},{x,<span style="color:#2aa198">0</span>}}.
+     {move,{x,<span style="color:#2aa198">2</span>},{y,<span style="color:#2aa198">1</span>}}.
+     {trim,<span style="color:#2aa198">1</span>,<span style="color:#2aa198">1</span>}.
+     {line,[{location,<span style="color:#2aa198">&#34;map.erl&#34;</span>,<span style="color:#2aa198">18</span>}]}.
+     {call,<span style="color:#2aa198">2</span>,{f,<span style="color:#2aa198">7</span>}}.
+     {test_heap,<span style="color:#2aa198">2</span>,<span style="color:#2aa198">1</span>}.
+     {put_list,{y,<span style="color:#2aa198">0</span>},{x,<span style="color:#2aa198">0</span>},{x,<span style="color:#2aa198">0</span>}}.
+     {deallocate,<span style="color:#2aa198">1</span>}.
      return.
-   {label,<span style="color:#ff0;font-weight:bold">8</span>}.
-     {test,is_nil,{f,<span style="color:#ff0;font-weight:bold">6</span>},[{x,<span style="color:#ff0;font-weight:bold">1</span>}]}.
-     {move,nil,{x,<span style="color:#ff0;font-weight:bold">0</span>}}.
+   {label,<span style="color:#2aa198">8</span>}.
+     {test,is_nil,{f,<span style="color:#2aa198">6</span>},[{x,<span style="color:#2aa198">1</span>}]}.
+     {move,nil,{x,<span style="color:#2aa198">0</span>}}.
      return.</code></pre></td></tr></table>
 </div>
 </div>
@@ -289,10 +289,10 @@ I pulled the description from the <a href="https://github.com/erlang/otp/blob/OT
 It invokes a recursive call with the <strong>call/2</strong> opcode.
 I pulled the description from the <a href="https://github.com/erlang/otp/blob/OTP-18.1/lib/compiler/src/genop.tab#L43">genop.tab</a> file.</p>
 <p><strong>Opcode call/2 comments</strong></p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"><span style="color:#f00">##</span> @spec call Arity Label
-<span style="color:#f00">##</span> @doc Call the function at Label.
-<span style="color:#f00">##</span>      Save the next instruction as the return address in the CP <span style="color:#fff;font-weight:bold">register</span>.
-<span style="color:#ff0;font-weight:bold">4</span>: call/<span style="color:#ff0;font-weight:bold">2</span></code></pre></div>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">## @spec call <span style="color:#268bd2">Arity</span> <span style="color:#268bd2">Label</span>
+## @doc <span style="color:#268bd2">Call</span> the function at <span style="color:#268bd2">Label</span>.
+##      <span style="color:#268bd2">Save</span> the next instruction as the return address in the <span style="color:#268bd2">CP</span> <span style="color:#b58900">register</span>.
+<span style="color:#2aa198">4</span>: call<span style="color:#719e07">/</span><span style="color:#2aa198">2</span></code></pre></div>
 <p>The tail recursive implementation replaces <strong>call/2</strong> with <strong>call_last/3</strong>.
 From the description, <strong>call_last/3</strong> will deallocate the stack frame before making the function call and not update the CP register.
 Therefore, the tail recursive implementation with be optimized to reuse the same stack frame for each recursive call.</p>
