@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>encoding on </title>
+    <link>https://www.yunker.io/tags/encoding/</link>
+    <description>Recent content in encoding on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 May 2013 00:00:00 +0000</lastBuildDate><atom:link href="https://www.yunker.io/tags/encoding/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Double Encoded UTF-8 Data in MySQL</title>
+      <link>https://www.yunker.io/posts/double-encoded-data-in-mysql/</link>
+      <pubDate>Sat, 18 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/posts/double-encoded-data-in-mysql/</guid>
+      <description>I recently had the misfortune of dealing with a MySQL database which got its data double UTF-8 encoded. It happened during a software deploy so my colleagues and I had to come up with a quick solution and get our database back into live service. Luckily, we were able to find a stopgap solution, and later, during the next maintenance window, we were able to fix the data for good.</description>
+    </item>
+    
+  </channel>
+</rss>

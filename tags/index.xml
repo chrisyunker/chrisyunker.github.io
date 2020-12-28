@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on </title>
+    <link>https://www.yunker.io/tags/</link>
+    <description>Recent content in Tags on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 29 Nov 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://www.yunker.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bytecode</title>
+      <link>https://www.yunker.io/tags/bytecode/</link>
+      <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/tags/bytecode/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>erlang</title>
+      <link>https://www.yunker.io/tags/erlang/</link>
+      <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/tags/erlang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>maps</title>
+      <link>https://www.yunker.io/tags/maps/</link>
+      <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/tags/maps/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>recursion</title>
+      <link>https://www.yunker.io/tags/recursion/</link>
+      <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/tags/recursion/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>encoding</title>
+      <link>https://www.yunker.io/tags/encoding/</link>
+      <pubDate>Sat, 18 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/tags/encoding/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://www.yunker.io/tags/mysql/</link>
+      <pubDate>Sat, 18 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unicode</title>
+      <link>https://www.yunker.io/tags/unicode/</link>
+      <pubDate>Sat, 18 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.yunker.io/tags/unicode/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
