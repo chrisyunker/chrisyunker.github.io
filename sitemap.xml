@@ -1,86 +1,52 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>https://www.yunker.io/</loc>
-    <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
   <url>
     <loc>https://www.yunker.io/tags/bytecode/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/tags/erlang/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/tags/maps/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/posts/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/tags/recursion/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/tags/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-2/</loc>
     <lastmod>2015-11-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>https://www.yunker.io/</loc>
+    <lastmod>2015-11-29T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://www.yunker.io/posts/double-encoded-data-in-mysql/</loc>
     <lastmod>2013-05-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/tags/encoding/</loc>
     <lastmod>2013-05-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/tags/mysql/</loc>
     <lastmod>2013-05-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/tags/unicode/</loc>
     <lastmod>2013-05-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/about/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/authors/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://www.yunker.io/series/</loc>
   </url>
-  
 </urlset>
