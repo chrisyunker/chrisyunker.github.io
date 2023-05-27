@@ -13,9 +13,9 @@
       <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
       
       <guid>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/</guid>
-      <description>Erlang Map Function    The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+      <description>Erlang Map Function Link to heading The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
 lists:map Specification
-map(Fun, List1) -&amp;gt; List2 Fun = fun((A) -&amp;gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function    If we tried to implement this function without using the standard lib, there&amp;rsquo;s a few ways we could do it.</description>
+map(Fun, List1) -&amp;gt; List2 Fun = fun((A) -&amp;gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function Link to heading If we tried to implement this function without using the standard lib, there&amp;rsquo;s a few ways we could do it.</description>
     </item>
     
     <item>
@@ -24,7 +24,7 @@ map(Fun, List1) -&amp;gt; List2 Fun = fun((A) -&amp;gt; B) List1 = [A] List2 = [
       <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
       
       <guid>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-2/</guid>
-      <description>Recursion in Erlang Bytecode    In part 1, I talked a little about how Erlang optimizes tail recursive functions, a process generally known as Tail Call Optimization (TCO). To verify this, we can compile the functions into Erlang assembler source code and take a look. Erlang assembler source is the disassembled bytecode which gets converted to a BEAM file.
+      <description>Recursion in Erlang Bytecode Link to heading In part 1, I talked a little about how Erlang optimizes tail recursive functions, a process generally known as Tail Call Optimization (TCO). To verify this, we can compile the functions into Erlang assembler source code and take a look. Erlang assembler source is the disassembled bytecode which gets converted to a BEAM file.
 The erlc compiler command has a flag (-S) to compile into Erlang assembly.</description>
     </item>
     

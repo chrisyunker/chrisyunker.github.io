@@ -1,84 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Language" content="en">
-    <meta name="color-scheme" content="light dark">
-
-    
-
-    <meta name="author" content="Chris Yunker">
-    <meta name="description" content="Erlang Map Function    The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
-lists:map Specification
-map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function    If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it.">
-    <meta name="keywords" content="">
-
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tail vs. Body Recursion in Erlang Part 1"/>
-<meta name="twitter:description" content="Erlang Map Function    The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
-lists:map Specification
-map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function    If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it."/>
-
-    <meta property="og:title" content="Tail vs. Body Recursion in Erlang Part 1" />
-<meta property="og:description" content="Erlang Map Function    The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
-lists:map Specification
-map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function    If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2015-11-29T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2015-11-29T00:00:00&#43;00:00" />
-
-
-
-    <title>
+<head>
+  <title>
   Tail vs. Body Recursion in Erlang Part 1 · yunker.io
 </title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
 
-    
-      <link rel="canonical" href="https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/">
-    
 
-    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
 
-    
-      
-      
-      <link rel="stylesheet" href="/css/coder.min.c884c9ebf7b9aeed5fc748f64d6575016297c22227fb677bc4429bbed48d2d9b.css" integrity="sha256-yITJ6/e5ru1fx0j2TWV1AWKXwiIn&#43;2d7xEKbvtSNLZs=" crossorigin="anonymous" media="screen" />
-    
 
-    
+<meta name="author" content="Chris Yunker">
+<meta name="description" content="Erlang Map Function Link to heading The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+lists:map Specification
+map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function Link to heading If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it.">
+<meta name="keywords" content="">
 
-    
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tail vs. Body Recursion in Erlang Part 1"/>
+<meta name="twitter:description" content="Erlang Map Function Link to heading The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+lists:map Specification
+map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function Link to heading If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it."/>
 
-    
+<meta property="og:title" content="Tail vs. Body Recursion in Erlang Part 1" />
+<meta property="og:description" content="Erlang Map Function Link to heading The Erlang standard lib function lists:map is a higher order function which applies a function to each element of an input list to produce an output list.
+lists:map Specification
+map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B = term() Implementing Map Function Link to heading If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2015-11-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-11-29T00:00:00+00:00" />
 
-    
 
-    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
 
-    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
-    
-      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
-        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
-    
+<link rel="canonical" href="https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-1/">
 
-    <meta name="generator" content="Hugo 0.82.0" />
-  </head>
+
+<link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
 
   
   
-  <body class="preload-transitions colorscheme-light"
-        onload=" twemoji.parse(document.body); "
-  >
-    
+  <link rel="stylesheet" href="/css/coder.min.85656f585fe601450b123ec7c9a997f8488faf7f9e2c81913580c9e2f8c72f82.css" integrity="sha256-hWVvWF/mAUULEj7HyamX&#43;EiPr3&#43;eLIGRNYDJ4vjHL4I=" crossorigin="anonymous" media="screen" />
 
-    <main class="wrapper">
-      <nav class="navigation">
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+<body class="preload-transitions colorscheme-light">
+  
+
+  <main class="wrapper">
+    <nav class="navigation">
   <section class="container">
     <a class="navigation-title" href="/">
       yunker.io
@@ -111,8 +117,8 @@ map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B
 </nav>
 
 
-      <div class="content">
-        
+    <div class="content">
+      
   <section class="container post">
     <article>
       <header>
@@ -127,7 +133,7 @@ map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B
           <div class="date">
             <span class="posted-on">
               <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime='2015-11-29T00:00:00Z'>
+              <time datetime="2015-11-29T00:00:00Z">
                 29 Nov 2015
               </time>
             </span>
@@ -140,35 +146,43 @@ map(Fun, List1) -&gt; List2 Fun = fun((A) -&gt; B) List1 = [A] List2 = [B] A = B
           
           <div class="tags">
   <i class="fa fa-tag" aria-hidden="true"></i>
-    <a href="/tags/erlang/">erlang</a>
+    <span class="tag">
+      <a href="/tags/erlang/">erlang</a>
+    </span>
       <span class="separator">•</span>
-    <a href="/tags/recursion/">recursion</a>
+    <span class="tag">
+      <a href="/tags/recursion/">recursion</a>
+    </span>
       <span class="separator">•</span>
-    <a href="/tags/maps/">maps</a></div>
+    <span class="tag">
+      <a href="/tags/maps/">maps</a>
+    </span></div>
 
         </div>
       </header>
 
-      <div>
+      <div class="post-content">
         
         <h2 id="erlang-map-function">
   Erlang Map Function
   <a class="heading-link" href="#erlang-map-function">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>The Erlang standard lib function <a href="http://erlang.org/doc/man/lists.html#map-2">lists:map</a> is a higher order function which applies a function to each element of an input list to produce an output list.</p>
+<p>The Erlang standard lib function <a href="http://erlang.org/doc/man/lists.html#map-2"  class="external-link" target="_blank" rel="noopener">lists:map</a> is a higher order function which applies a function to each element of an input list to produce an output list.</p>
 <p><strong>lists:map Specification</strong></p>
-<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"><span style="color:#268bd2">map</span>(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List1</span>) <span style="color:#719e07">-&gt;</span> <span style="color:#268bd2">List2</span>
-
-<span style="color:#268bd2">Fun</span> <span style="color:#719e07">=</span> <span style="color:#719e07">fun</span>((<span style="color:#268bd2">A</span>) <span style="color:#719e07">-&gt;</span> <span style="color:#268bd2">B</span>)
-<span style="color:#268bd2">List1</span> <span style="color:#719e07">=</span> [<span style="color:#268bd2">A</span>]
-<span style="color:#268bd2">List2</span> <span style="color:#719e07">=</span> [<span style="color:#268bd2">B</span>]
-<span style="color:#268bd2">A</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">B</span> <span style="color:#719e07">=</span> term()</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-erlang" data-lang="erlang"><span style="display:flex;"><span><span style="color:#268bd2">map</span>(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List1</span>) <span style="color:#719e07">-&gt;</span> <span style="color:#268bd2">List2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">Fun</span> <span style="color:#719e07">=</span> <span style="color:#719e07">fun</span>((<span style="color:#268bd2">A</span>) <span style="color:#719e07">-&gt;</span> <span style="color:#268bd2">B</span>)
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">List1</span> <span style="color:#719e07">=</span> [<span style="color:#268bd2">A</span>]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">List2</span> <span style="color:#719e07">=</span> [<span style="color:#268bd2">B</span>]
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">A</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">B</span> <span style="color:#719e07">=</span> term()</span></span></code></pre></div>
 <h2 id="implementing-map-function">
   Implementing Map Function
   <a class="heading-link" href="#implementing-map-function">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>If we tried to implement this function without using the standard lib, there&rsquo;s a few ways we could do it.</p>
@@ -178,58 +192,59 @@ Body recursive functions, on the other hand, cannot deallocate the current frame
 Therefore each recursive call will create a new stack frame, and the stack will grow the length of the input list.</p>
 <p>Generally, a tail recursive implementation is preferred. However, there are cases where other factors dominate and a body recursive implementation is better.
 The map function is one of those cases.</p>
-<p>The following module <a href="https://github.com/chrisyunker/blog_code/blob/master/recursion/src/map.erl">map.erl</a> contains both tail and body recursive implementations.</p>
+<p>The following module <a href="https://github.com/chrisyunker/blog_code/blob/master/recursion/src/map.erl"  class="external-link" target="_blank" rel="noopener">map.erl</a> contains both tail and body recursive implementations.</p>
 <p><strong>map.erl</strong></p>
-<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">20
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">20
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang">-<span style="color:#cb4b16">module</span>(map).
--<span style="color:#cb4b16">author</span>(&#39;Chris Yunker &lt;chrisyunker@gmail.com&gt;&#39;).
-
--<span style="color:#cb4b16">export</span>([map_tail<span style="color:#719e07">/</span><span style="color:#2aa198">2</span>,
-         map_body<span style="color:#719e07">/</span><span style="color:#2aa198">2</span>]).
-
-<span style="color:#586e75">%% Tail recursive implementation of lists:map
-</span><span style="color:#586e75"></span><span style="color:#268bd2">map_tail</span>(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List</span>) <span style="color:#719e07">-&gt;</span>
-    map_tail(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List</span>, []).
-
-<span style="color:#268bd2">map_tail</span>(_<span style="color:#268bd2">Fun</span>, [], <span style="color:#268bd2">Acc</span>) <span style="color:#719e07">-&gt;</span>
-    lists:<span style="color:#268bd2">reverse</span>(<span style="color:#268bd2">Acc</span>);
-<span style="color:#268bd2">map_tail</span>(<span style="color:#268bd2">Fun</span>, [<span style="color:#268bd2">H</span> | <span style="color:#268bd2">T</span>], <span style="color:#268bd2">Acc</span>) <span style="color:#719e07">-&gt;</span>
-    map_tail(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">T</span>, [<span style="color:#268bd2">Fun</span>(<span style="color:#268bd2">H</span>) | <span style="color:#268bd2">Acc</span>]).
-
-<span style="color:#586e75">%% Body recursive implementation of lists:map
-</span><span style="color:#586e75"></span><span style="color:#268bd2">map_body</span>(<span style="color:#268bd2">Fun</span>, [<span style="color:#268bd2">H</span> | <span style="color:#268bd2">T</span>]) <span style="color:#719e07">-&gt;</span>
-    [<span style="color:#268bd2">Fun</span>(<span style="color:#268bd2">H</span>) | map_body(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">T</span>)];
-<span style="color:#268bd2">map_body</span>(_<span style="color:#268bd2">Fun</span>, []) <span style="color:#719e07">-&gt;</span>
-    [].</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-erlang" data-lang="erlang"><span style="display:flex;"><span>-<span style="color:#cb4b16">module</span>(map).
+</span></span><span style="display:flex;"><span>-<span style="color:#cb4b16">author</span>(&#39;Chris Yunker &lt;chrisyunker@gmail.com&gt;&#39;).
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-<span style="color:#cb4b16">export</span>([map_tail<span style="color:#719e07">/</span><span style="color:#2aa198">2</span>,
+</span></span><span style="display:flex;"><span>         map_body<span style="color:#719e07">/</span><span style="color:#2aa198">2</span>]).
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75">%% Tail recursive implementation of lists:map
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">map_tail</span>(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List</span>) <span style="color:#719e07">-&gt;</span>
+</span></span><span style="display:flex;"><span>    map_tail(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">List</span>, []).
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">map_tail</span>(_<span style="color:#268bd2">Fun</span>, [], <span style="color:#268bd2">Acc</span>) <span style="color:#719e07">-&gt;</span>
+</span></span><span style="display:flex;"><span>    lists:<span style="color:#268bd2">reverse</span>(<span style="color:#268bd2">Acc</span>);
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">map_tail</span>(<span style="color:#268bd2">Fun</span>, [<span style="color:#268bd2">H</span> | <span style="color:#268bd2">T</span>], <span style="color:#268bd2">Acc</span>) <span style="color:#719e07">-&gt;</span>
+</span></span><span style="display:flex;"><span>    map_tail(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">T</span>, [<span style="color:#268bd2">Fun</span>(<span style="color:#268bd2">H</span>) | <span style="color:#268bd2">Acc</span>]).
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#586e75">%% Body recursive implementation of lists:map
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">map_body</span>(<span style="color:#268bd2">Fun</span>, [<span style="color:#268bd2">H</span> | <span style="color:#268bd2">T</span>]) <span style="color:#719e07">-&gt;</span>
+</span></span><span style="display:flex;"><span>    [<span style="color:#268bd2">Fun</span>(<span style="color:#268bd2">H</span>) | map_body(<span style="color:#268bd2">Fun</span>, <span style="color:#268bd2">T</span>)];
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">map_body</span>(_<span style="color:#268bd2">Fun</span>, []) <span style="color:#719e07">-&gt;</span>
+</span></span><span style="display:flex;"><span>    [].</span></span></code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="tail-vs-body-recursion">
   Tail vs Body Recursion
   <a class="heading-link" href="#tail-vs-body-recursion">
-    <i class="fa fa-link" aria-hidden="true"></i>
+    <i class="fa fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
   </a>
 </h2>
 <p>The function <strong>map_tail/2</strong> is tail recursive since the recursive function call is the last statement of the function clause (line 14).
@@ -242,7 +257,7 @@ This is in contrast which other types of recursive functions in which the output
 </li>
 <li>
 <p>The tail recursive implementation constructs the output list in the reverse order.
-So before returning the result, it has to call <a href="http://erlang.org/doc/man/lists.html#reverse-1">lists:reverse</a>.</p>
+So before returning the result, it has to call <a href="http://erlang.org/doc/man/lists.html#reverse-1"  class="external-link" target="_blank" rel="noopener">lists:reverse</a>.</p>
 </li>
 <li>
 <p>Since the OTP R12B release, optimizations have been made to reduce the memory footprint on the stack for body recursive calls.
@@ -253,23 +268,23 @@ In the case of the map function, the memory consumed storing each output element
 It uses roughly the same memory as the tail recursive implementation and doesn&rsquo;t require a call to reverse the list.
 This agrees with the standard lib implementation of <strong>lists:map</strong> which is body recursive (see below).</p>
 <p><strong>OTP 18.1 lists:map Implementation</strong></p>
-<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-erlang" data-lang="erlang"><span style="color:#268bd2">map</span>(<span style="color:#268bd2">F</span>, [<span style="color:#268bd2">H</span>|<span style="color:#268bd2">T</span>]) <span style="color:#719e07">-&gt;</span>
-    [<span style="color:#268bd2">F</span>(<span style="color:#268bd2">H</span>)|map(<span style="color:#268bd2">F</span>, <span style="color:#268bd2">T</span>)];
-<span style="color:#268bd2">map</span>(<span style="color:#268bd2">F</span>, []) <span style="color:#719e07">when</span> <span style="color:#b58900">is_function</span>(<span style="color:#268bd2">F</span>, <span style="color:#2aa198">1</span>) <span style="color:#719e07">-&gt;</span> [].</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-erlang" data-lang="erlang"><span style="display:flex;"><span><span style="color:#268bd2">map</span>(<span style="color:#268bd2">F</span>, [<span style="color:#268bd2">H</span>|<span style="color:#268bd2">T</span>]) <span style="color:#719e07">-&gt;</span>
+</span></span><span style="display:flex;"><span>    [<span style="color:#268bd2">F</span>(<span style="color:#268bd2">H</span>)|map(<span style="color:#268bd2">F</span>, <span style="color:#268bd2">T</span>)];
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">map</span>(<span style="color:#268bd2">F</span>, []) <span style="color:#719e07">when</span> <span style="color:#b58900">is_function</span>(<span style="color:#268bd2">F</span>, <span style="color:#2aa198">1</span>) <span style="color:#719e07">-&gt;</span> [].</span></span></code></pre></td></tr></table>
 </div>
 </div>
 <p>Note that if this were a function which either 1) generated a list which didn&rsquo;t need to be reversed or 2) generated an output term which stayed a constant size, then a tail recursive implementation would be better.</p>
 <p>More information can be found here:</p>
 <ul>
-<li><a href="http://www.erlang.org/doc/efficiency_guide/myths.html#id60450">Myth: Tail-Recursive Functions are Much Faster Than Recursive Functions</a></li>
-<li><a href="http://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html">Erlang&rsquo;s Tail Recursion is Not a Silver Bullet</a></li>
+<li><a href="http://www.erlang.org/doc/efficiency_guide/myths.html#id60450"  class="external-link" target="_blank" rel="noopener">Myth: Tail-Recursive Functions are Much Faster Than Recursive Functions</a></li>
+<li><a href="http://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html"  class="external-link" target="_blank" rel="noopener">Erlang&rsquo;s Tail Recursion is Not a Silver Bullet</a></li>
 </ul>
 
       </div>
@@ -280,8 +295,8 @@ This agrees with the standard lib implementation of <strong>lists:map</strong> w
 
 
         <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+  window.disqus_config = function () {
     
     
     
@@ -296,9 +311,14 @@ This agrees with the standard lib implementation of <strong>lists:map</strong> w
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
+    
+    document.addEventListener('themeChanged', function (e) { 
+        if (document.readyState == 'complete') {
+          DISQUS.reset({ reload: true, config: disqus_config });
+        }
+    });
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
         
         
       </footer>
@@ -307,56 +327,73 @@ This agrees with the standard lib implementation of <strong>lists:map</strong> w
     
   </section>
 
-      </div>
+    </div>
 
-      
-  <footer class="footer">
-    <section class="container">
-      
-      
-      
-        
-        Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
-      
-      
-    </section>
-  </footer>
-
-
-    </main>
-
+    <footer class="footer">
+  <section class="container">
+    ©
     
-      
-      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    2023
+     Chris Yunker 
+    ·
     
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
 
-    
+  </main>
 
-    
-<script type="application/javascript">
+  
+
+  
+  
+  <script src="/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js" integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script>
+  
+
+  
+
+  
+
+
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYS9G9891J"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-58148811-6', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-QYS9G9891J', { 'anonymize_ip': false });
 }
 </script>
 
-    
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
+  
 
-    
-  </body>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
 
 </html>

@@ -13,7 +13,7 @@
       <pubDate>Sun, 29 Nov 2015 00:00:00 +0000</pubDate>
       
       <guid>https://www.yunker.io/posts/tail-vs-body-recursion-in-erlang-2/</guid>
-      <description>Recursion in Erlang Bytecode    In part 1, I talked a little about how Erlang optimizes tail recursive functions, a process generally known as Tail Call Optimization (TCO). To verify this, we can compile the functions into Erlang assembler source code and take a look. Erlang assembler source is the disassembled bytecode which gets converted to a BEAM file.
+      <description>Recursion in Erlang Bytecode Link to heading In part 1, I talked a little about how Erlang optimizes tail recursive functions, a process generally known as Tail Call Optimization (TCO). To verify this, we can compile the functions into Erlang assembler source code and take a look. Erlang assembler source is the disassembled bytecode which gets converted to a BEAM file.
 The erlc compiler command has a flag (-S) to compile into Erlang assembly.</description>
     </item>
     
